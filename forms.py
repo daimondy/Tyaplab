@@ -10,8 +10,8 @@ class RegistationForm(FlaskForm):
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
     password = PasswordField('Пароль', validators=[DataRequired()])
-    confirrm_password = PasswordField('Потдвердите пароль',
-                                      validators=[DataRequired(), EqualTo('password')])
+    confirm_password = PasswordField('Подтвердите пароль',
+                                     validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Регистрация')
 
 class LoginForm(FlaskForm):

@@ -17,13 +17,13 @@
                        {{ form.password.label(class='form-control-label') }}
                        {{ form.password(class='form-control form-control-lg') }}
                    </div>
-                    <div class = "form-group">
+                   <div class = "form-group">
                        {{ form.confirm_password(class='form-control-label') }}
                        {{ form.confirm_password(class='form-control form-control-lg') }}
                    </div>
                </fieldset>
                <div class = "form-group">
-                   {{form,submit(class='btn btn-outline-info')}}
+                   {{form.submit(class='btn btn-outline-info')}}
                </div>
            </form>
        </div>
@@ -31,6 +31,5 @@
             <small class = "text-muted">
                 У вас уже есть аккаунт? <a class = 'ml-2' href="{{ url_for('login')}}"> Войти </a>
             </small>
-
         </div>
 {% endblock content %}
