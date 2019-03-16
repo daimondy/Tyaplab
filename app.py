@@ -16,12 +16,12 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    image_file = db.Column(db.String(20), unique=True, nullable=False, default='default.jpg')
+    image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
     posts = db.relationship('Post', backref='author', lazy=True)
 
     def __repr__(self):
-        return "User('{self.username}', '{self.email}'), '{self.image_file}'"
+        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
 
 
 class Post(db.Model):
@@ -29,10 +29,10 @@ class Post(db.Model):
     title = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return "Post('{self.title}', '{self.date_posted}')"
+        return f"Post('{self.title}', '{self.date_posted}')"
 
 
 posts = [
@@ -57,7 +57,7 @@ def about():
 def register():
     form = RegistationForm()
     if form.validate_on_submit():
-        flash('Аккаунт создан с именем {form.username.data}.', 'success')
+        flash(f'Аккаунт создан с именем {form.username.data}.', 'success')
         return redirect(url_for('home'))
     return render_template('register.html', title='Регистрация', form=form)
 
@@ -70,7 +70,7 @@ def login():
             flash('Вы вошли в систему!')
             return redirect(url_for('home'))
         else:
-            flash('Авторизация не прошла успешно. Пожалуйста, проверьте свой логин и пароль', 'danger')
+            flash(f'Авторизация не прошла успешно. Пожалуйста, проверьте свой логин и пароль', 'danger')
     return render_template('login.html', title='Вход', form=form)
 
 
