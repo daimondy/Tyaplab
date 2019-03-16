@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{%  block content %}
+{% for post in posts %}
+<article class="media content-section">
+    <div class="media-body">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Привет!</h1>
+                <p class="lead">{{ post.message }}</p>
+            </div>
+        </div>
+    </div>
+</article>
+{% endfor %}
+{% endblock content %}
