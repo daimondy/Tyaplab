@@ -1,3 +1,4 @@
+# coding=utf-8
 import os
 from datetime import datetime
 from flask import Flask, render_template, url_for, flash, redirect
@@ -20,7 +21,7 @@ class User(db.Model):
     posts = db.relationship('Post', backref='author', lazy=True)
 
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}'), '{self.image_file}'"
+        return "User('{self.username}', '{self.email}'), '{self.image_file}'"
 
 
 class Post(db.Model):
@@ -31,7 +32,7 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
 
     def __repr__(self):
-        return f"Post('{self.title}', '{self.date_posted}')"
+        return "Post('{self.title}', '{self.date_posted}')"
 
 
 posts = [
@@ -56,7 +57,7 @@ def about():
 def register():
     form = RegistationForm()
     if form.validate_on_submit():
-        flash(f'Аккаунт создан с именем {form.username.data}.', 'success')
+        flash('Аккаунт создан с именем {form.username.data}.', 'success')
         return redirect(url_for('home'))
     return render_template('register.html', title='Регистрация', form=form)
 
