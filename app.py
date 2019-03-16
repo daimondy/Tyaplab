@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, flash, redirect
 from forms import RegistationForm, LoginForm
 
 app = Flask(__name__)
@@ -8,18 +8,7 @@ SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
 posts = [
     {
-        'day': 'Понедельник',
-        'pare1': 'Физика',
-        'pare2': 'Математика',
-        'time':'9:30-11:05',
-        'time2':'11:15-12:50'
-    },
-    {
-        'day': 'Вторник',
-        'pare1': 'Информатика',
-        'pare2': 'Физ-ра',
-        'time':'9:30-11:05',
-        'time2':'11:15-12:50'
+        'message':'Добро пожаловать на мой сайт. Здесь будет висеть рассписание группы БСТ1803'
     }
 ]
 
@@ -34,14 +23,23 @@ def home():
 def about():
     return render_template('about.html', title = 'О сайте')
 
-@app.route('/register')
+@app.route('/register', methods = ['GET', 'POST'])
 def register():
     form = RegistationForm()
+    if form.validate_on_submit():
+        flash(f'Аккаунт создан с именем {form.username.data}.', 'success')
+        return  redirect(url_for('home'))
     return render_template('register.html', title='Регистрация', form = form)
 
-@app.route('/login')
+@app.route('/login', methods = ['GET', 'POST'])
 def login():
     form = LoginForm()
+    if form.validate_on_submit():
+        if form.email.data == 'admin@blog.com' and form.password.data == 'password':
+            flash('Вы вошли в систему!')
+            return redirect(url_for('home'))
+        else:
+            flash('Авторизация не прошла успешно. Пожалуйста, проверьте свой логин и пароль', 'danger')
     return render_template('login.html', title='Вход', form = form)
 
 
