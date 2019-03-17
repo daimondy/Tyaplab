@@ -1,7 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request
 from server import app, db, bcrypt
-from server.forms import  LoginForm, RegistationForm
+from server.forms import LoginForm, RegistationForm
 from server.models import User
+import sqlite3
 from flask_login import login_user, current_user, logout_user, login_required
 
 posts = [
@@ -10,6 +11,7 @@ posts = [
                    'Для того, чтобы увидеть рассписание, войдите в свой профиль.'
     }
 ]
+
 
 @app.route('/')
 @app.route('/home')
@@ -64,6 +66,37 @@ def logout():
 def account():
     return render_template('account.html', title='Аккаунт')
 
-@app.route("/raspisanie", methods=['GET','POST'])
+
+@app.route('/account/raspisanie', methods=['GET', 'POST'])
+@login_required
 def raspisanie():
-    return render_template('raspisanie.html', title='Расписание')
+    conn = sqlite3.connect('server/site.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM schedule")
+    content = c.fetchall()
+    return render_template('raspisanie.html', content=content)
+
+
+@app.route('/account/raspisanie/edit', methods=['POST'])
+@login_required
+def resp_edit():
+    if request.method == 'POST':
+        content = request.json
+        user = User.query.filter_by(username=content['username']).first()
+        print(content)
+        if user and bcrypt.check_password_hash(user.password, content['password']):
+            conn = sqlite3.connect('server/site.db')
+            c = conn.cursor()
+            day = str(content['day'])
+            pare1 = str(content['pare1'])
+            pare2 = str(content['pare2'])
+            pare3 = str(content['pare3'])
+            pare4 = str(content['pare4'])
+            pare5 = str(content['pare5'])
+            c.execute("UPDATE schedule SET pare1 = ?, pare2 = ?, pare3 = ?, pare4 = ?, pare5 = ? WHERE day = ?",
+                      (pare1, pare2, pare3, pare4, pare5, day))
+            conn.commit()
+            return 'what'
+        else:
+            return ('Ошибка')
+    return ''
