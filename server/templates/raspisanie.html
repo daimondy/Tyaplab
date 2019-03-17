@@ -2,13 +2,13 @@
 {% block content %}
     <ul class="list-group">
         <h1 class="list-group-item">Понедельник</h1>
-      <li class="list-group-item">Физ-ра</li>
-      <li class="list-group-item">Теория языков программирования</li>
-      <li class="list-group-item">ТФКПРиОИ</li>
-      <li class="list-group-item">Теория языков программирования</li>
+      <li class="list-group-item">{{content [0][3]}}</li>
+      <li class="list-group-item">{{content [0][4]}}</li>
+      <li class="list-group-item">{{content [0][5]}}</li>
+      <li class="list-group-item">{{content [0][6]}}</li>
     </ul>
 <p>
-    {{content}}
+    {{content [0][3]}}
 </p>
 
 {% endblock content %}

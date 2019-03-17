@@ -78,7 +78,6 @@ def raspisanie():
 
 
 @app.route('/account/raspisanie/edit', methods=['POST'])
-@login_required
 def resp_edit():
     if request.method == 'POST':
         content = request.json
@@ -96,7 +95,5 @@ def resp_edit():
             c.execute("UPDATE schedule SET pare1 = ?, pare2 = ?, pare3 = ?, pare4 = ?, pare5 = ? WHERE day = ?",
                       (pare1, pare2, pare3, pare4, pare5, day))
             conn.commit()
-            return 'what'
-        else:
-            return ('Ошибка')
-    return ''
+            return
+    return
