@@ -32,7 +32,7 @@ def register():
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
-        flash('Your account has been created! You are now able to log in', 'success')
+        flash('Ваш аккаунт создан! Теперь вы можете войти', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
@@ -64,6 +64,6 @@ def logout():
 def account():
     return render_template('account.html', title='Аккаунт')
 
-@app.route("/raspisanie", methods=['Post'])
+@app.route("/raspisanie", methods=['GET','POST'])
 def raspisanie():
     return render_template('raspisanie.html', title='Расписание')

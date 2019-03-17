@@ -1,15 +1,14 @@
 {% extends 'layout.html' %}
 {%  block content %}
 {% for post in posts %}
-<article class="media content-section">
-    <div class="media-body">
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h1 class="display-4">Привет!</h1>
-                <p class="lead">{{ post.message }}</p>
-            </div>
-        </div>
-    </div>
-</article>
+<div class="jumbotron">
+  <h1 class="display-4">Привет!</h1>
+  <p class="lead">На данном сайте вы можете посмотреть рассписание группы БСТ1803.</p>
+  <hr class="my-4">
+  <p>Впервые здесь? Создайте свой аккаунт прямо сейчас!</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="{{ url_for('register') }}" role="button">Зарегистрироваться</a>
+  </p>
+</div>
 {% endfor %}
 {% endblock content %}
