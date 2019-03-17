@@ -11,7 +11,7 @@
                 {{ form.email(class='form-control form-control-lg is-invalid') }}
                 <div class='invalid-feedback'>
                     {% for error in form.email.errors %}
-                    <span>{{ 'Неверный email.' }}</span>
+                    <span>{{ 'Неверный email, либо такого аккаунта не существует.' }}</span>
                     {% endfor %}
                 </div>
                 {% else %}
@@ -24,7 +24,7 @@
                 {{ form.password(class='form-control form-control-lg is-invalid') }}
                 <div class='invalid-feedback'>
                     {% for error in form.password.errors %}
-                    <span>{{ error }}</span>
+                    <span>{{ 'Неверный пароль.' }}</span>
                     {% endfor %}
                 </div>
                 {% else %}

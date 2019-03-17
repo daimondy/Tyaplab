@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<p class="text-lg-right">Имя аккаунта: {{ current_user.username }}</p>
+<p class="text-lg-right">  </p>
 
+<a href="{{ url_for('raspisanie') }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Расписание</a>
 {% endblock content %}
