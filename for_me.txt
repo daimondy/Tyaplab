@@ -1,0 +1,25 @@
+cd C:\PycharmProjects\LabServer
+python
+from server import db
+db.create_all()
+from server.models import User, Schedule
+new_user = User(username="Diana", password='azaz', email="d@d.com")
+db.session.add(new_user)
+db.session.commit()
+User.query.all()
+
+Schedule.query.all()
+
+
+
+
+day1= Schedule(day ='Понедельник', pare1 = '', pare2 = 'Физ-за', pare3 = 'Теория языков программирования. Лекция', pare4 = 'ТФКПРиОИ. Лекция', pare5 = 'Теория языков программирования. Лабораторная')
+day2= Schedule(day ='Вторник', pare1 = 'Информатика. Лекция', pare2 = 'Ин.яз', pare3 = '', pare4 = '', pare5 = '' )
+day3= Schedule(day ='Среда', pare1 = 'Физ-ра', pare2 = 'Теория языков программирования. Практика', pare3 = 'Физика. Лаборатроная', pare4 = 'Философия. Практика', pare5 = '')
+day4= Schedule(day ='Четверг', pare1 = '', pare2 = '', pare3 = 'Ин.яз', pare4 = 'Информатика.Лабораторная', pare5 = '' )
+day5= Schedule(day ='Пятница', pare1 = 'Физика. Лекция', pare2 = 'Высшая математика. Практика', pare3 = 'ТФКПРиОИ. Практика', pare4 = '', pare5 = '' )
+db.session.add(day1)
+db.session.add(day2)
+db.session.add(day3)
+db.session.add(day4)
+db.session.add(day5)
