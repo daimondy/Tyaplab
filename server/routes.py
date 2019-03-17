@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
 from server import app, db, bcrypt
-from server.forms import RegistationForm, LoginForm
-from server.models import User, Post
+from server.forms import  LoginForm, RegistationForm
+from server.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 
 posts = [
@@ -10,7 +10,6 @@ posts = [
                    'Для того, чтобы увидеть рассписание, войдите в свой профиль.'
     }
 ]
-
 
 @app.route('/')
 @app.route('/home')
@@ -23,7 +22,7 @@ def about():
     return render_template('about.html', title='О сайте')
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('home'))
@@ -33,9 +32,9 @@ def register():
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
-        flash('Ваш аккаунт создан! Теперь вы можете войти', 'success')
+        flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
-    return render_template('register.html', title='Регистрация', form=form)
+    return render_template('register.html', title='Register', form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -63,4 +62,8 @@ def logout():
 @app.route("/account")
 @login_required
 def account():
-    return render_template('account.html', title='Account')
+    return render_template('account.html', title='Аккаунт')
+
+@app.route("/raspisanie", methods=['Post'])
+def raspisanie():
+    return render_template('raspisanie.html', title='Расписание')
