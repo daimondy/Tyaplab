@@ -61,13 +61,10 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route("/account")
-@login_required
-def account():
-    return render_template('account.html', title='Аккаунт')
 
 
-@app.route('/account/raspisanie', methods=['GET', 'POST'])
+
+@app.route('/raspisanie', methods=['GET', 'POST'])
 @login_required
 def raspisanie():
     conn = sqlite3.connect('server/site.db')
@@ -77,7 +74,7 @@ def raspisanie():
     return render_template('raspisanie.html', content=content)
 
 
-@app.route('/account/raspisanie/edit', methods=['POST'])
+@app.route('/raspisanie/edit', methods=['POST'])
 def resp_edit():
     if request.method == 'POST':
         content = request.json
