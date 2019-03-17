@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request
 from server import app, db, bcrypt
 from server.forms import LoginForm, RegistationForm
 from server.models import User
-import sqlite3
+import sqlite3, json
 from flask_login import login_user, current_user, logout_user, login_required
 
 posts = [
@@ -61,9 +61,6 @@ def logout():
     return redirect(url_for('home'))
 
 
-
-
-
 @app.route('/raspisanie', methods=['GET', 'POST'])
 @login_required
 def raspisanie():
@@ -92,5 +89,14 @@ def resp_edit():
             c.execute("UPDATE schedule SET pare1 = ?, pare2 = ?, pare3 = ?, pare4 = ?, pare5 = ? WHERE day = ?",
                       (pare1, pare2, pare3, pare4, pare5, day))
             conn.commit()
-            return
-    return
+            return 'Успешно'
+        else:return 'Неправильный логин или пароль, или такого аккаунта не существует'
+    return "Ошибка"
+
+@app.route('/raspisanie/all')
+def rasp_all():
+    conn = sqlite3.connect('server/site.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM schedule")
+    content = c.fetchall()
+    return (json.dumps(content, ensure_ascii = False))
