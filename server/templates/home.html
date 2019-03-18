@@ -1,6 +1,17 @@
 {% extends 'layout.html' %}
 {%  block content %}
 {% for post in posts %}
+{% if current_user.is_authenticated %}
+<div class="jumbotron">
+  <h1 class="display-4">Привет!</h1>
+  <p class="lead">Чтобы посмотреть рассписание, нажми на кнопку ниже</p>
+  <hr class="my-4">
+
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="{{ url_for('raspisanie') }}" role="button">Перейти</a>
+  </p>
+</div>
+{% else %}
 <div class="jumbotron">
   <h1 class="display-4">Привет!</h1>
   <p class="lead">На данном сайте вы можете посмотреть рассписание группы БСТ1803.</p>
@@ -10,5 +21,6 @@
     <a class="btn btn-primary btn-lg" href="{{ url_for('register') }}" role="button">Зарегистрироваться</a>
   </p>
 </div>
+{% endif %}
 {% endfor %}
 {% endblock content %}

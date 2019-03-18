@@ -72,8 +72,10 @@
         </div>
         <div class="col-md-4">
             <div class="content-section">
+                {% if current_user.is_authenticated %}
                 <p class='text-muted'>Имя профиля:
                 <h1>{{ current_user.username }}</h1>
+                {% endif %}
                 </p>
             </div>
         </div>
